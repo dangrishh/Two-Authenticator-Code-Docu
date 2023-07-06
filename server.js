@@ -81,6 +81,35 @@ app.post("/api/register", (req, res) => {
     }
   });
 
+app.post("/api/validate", (req, res) => {
+  const { userId, token } = req.body;
+  try {
+    // Retrieve user from database
+    const path = `/user/${userId}`;
+    const user = db.getData(path);
+    console.log({ user });
+    if (!user) {
+      return res.json({ validated: false });
+    }
+    const { base32: secret } = user.secret || {};
+    // Returns true if the token matches
+    const tokenValidates = speakeasy.totp.verify({
+      secret,
+      encoding: "base32",
+      token,
+      window: 1,
+    });
+    if (tokenValidates) {
+      res.json({ validated: true });
+    } else {
+      res.json({ validated: false });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error retrieving user" });
+  }
+});
+
 /* mongoose.connect('mongodb+srv://admin:admin@authenticatordb.d6kvalh.mongodb.net/Authenticator-NODE?retryWrites=true&w=majority')
   .then(() => {
     console.log('MongoDB is Already Connected!')
