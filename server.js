@@ -107,13 +107,6 @@ app.post("/api/validate", (req, res) => {
   }
 });
 
-/* mongoose.connect('mongodb+srv://admin:admin@authenticatordb.d6kvalh.mongodb.net/Authenticator-NODE?retryWrites=true&w=majority')
-  .then(() => {
-    console.log('MongoDB is Already Connected!')
-  }).catch((error) => {
-    console.log(error);
-  }); */
-
   const port = 9000;
   app.listen(port, () => {
     console.log(`App is running on PORT: ${port}.`);
