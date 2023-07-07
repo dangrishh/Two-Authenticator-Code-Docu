@@ -7,7 +7,7 @@ const Config = require('node-json-db/dist/lib/JsonDBConfig').Config;
 
 const app = express();
 
-/*
+/* this Code is X
 * const dbConfig = new Config("myDataBase", true, false, '/')
 * const db = new JsonDB(dbConfig);
 */
