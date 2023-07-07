@@ -4,7 +4,6 @@ const uuid = require("uuid");
 const speakeasy = require("speakeasy");
 const JsonDB = require('node-json-db').JsonDB;
 const Config = require('node-json-db/dist/lib/JsonDBConfig').Config;
-// const mongoose = require('mongoose');
 
 const app = express();
 
@@ -16,7 +15,6 @@ const app = express();
 // Shortcut Code
 const db = new JsonDB(new Config('myDatabase', true, false, '/'))
 
-
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,7 +23,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/api", (req,res) => {
   res.json({ message: "Welcome to the two factor authentication exmaple" })
 });
-
 
 app.post("/api/register", (req, res) => {
   const id = uuid.v4();
@@ -43,7 +40,7 @@ app.post("/api/register", (req, res) => {
     }
   })
 
-
+// I add this function getDataAsync to verify the token
   function getDataAsync(path) {
     return new Promise((resolve, reject) => {
       try {
@@ -113,8 +110,6 @@ app.post("/api/validate", (req, res) => {
 /* mongoose.connect('mongodb+srv://admin:admin@authenticatordb.d6kvalh.mongodb.net/Authenticator-NODE?retryWrites=true&w=majority')
   .then(() => {
     console.log('MongoDB is Already Connected!')
-
-
   }).catch((error) => {
     console.log(error);
   }); */
